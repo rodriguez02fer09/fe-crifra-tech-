@@ -263,7 +263,7 @@ style: formatear codigo
 ## 🚀 Fase 1 – Setup Inicial
 
 - [✓] Crear proyecto React + TS
-- [ ] Instalar Tailwind
+- [✓] Instalar Tailwind
 - [✓] ESLint + Prettier
 - [✓] Husky para hooks Git
 - [ ] Definir estructura base
@@ -353,5 +353,3 @@ Si quieres, te preparo también:
 ✅ **plantilla de commitlint**
 
 ✅ **estructura inicial del proyecto con todos los archivos**
-
-Solo dime "sí" y te lo genero.
