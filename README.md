@@ -264,7 +264,7 @@ style: formatear codigo
 
 - [✓] Crear proyecto React + TS
 - [ ] Instalar Tailwind
-- [ ] ESLint + Prettier
+- [✓] ESLint + Prettier
 - [ ] Husky para hooks Git
 - [ ] Definir estructura base
 - [ ] Configurar React Router
