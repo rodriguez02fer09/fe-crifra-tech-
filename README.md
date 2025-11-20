@@ -265,10 +265,11 @@ style: formatear codigo
 - [✓] Crear proyecto React + TS
 - [ ] Instalar Tailwind
 - [✓] ESLint + Prettier
-- [ ] Husky para hooks Git
+- [✓] Husky para hooks Git
 - [ ] Definir estructura base
 - [ ] Configurar React Router
 - [ ] Configurar Zustand
+- [ ✓] Configurar React Test Library
 
 ## 📦 Fase 2 – Infraestructura
 
