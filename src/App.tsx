@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useCounterStore } from './store/counterStore'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = useCounterStore(state => state.count)
+  const increment = useCounterStore(state => state.increment)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center p-8">
@@ -35,7 +36,7 @@ function App() {
       <h1 className="text-5xl font-bold text-gray-800 mb-8">Vite + React</h1>
       <div className="bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-xl">
         <button
-          onClick={() => setCount(count => count + 1)}
+          onClick={increment}
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
         >
           count is {count}
