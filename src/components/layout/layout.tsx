@@ -10,15 +10,13 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="h-screen w-screen flex flex-col   overflow-hidden">
-      <Header />
-
+      <Header />d
       <main
         role="main"
-        className="  flex-1 overflow-y-auto overflow-x-hidden bg-emerald-100  w-full px-4 sm:px-6 lg:px-8 py-6"
+        className="flex-1 overflow-y-auto overflow-x-hidden bg-emerald-100  w-full px-4 sm:px-6 lg:px-8 py-6"
       >
         {children}
       </main>
-
       <Footer />
     </div>
   )
