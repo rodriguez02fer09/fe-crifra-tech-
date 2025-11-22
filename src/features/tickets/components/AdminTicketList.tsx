@@ -44,10 +44,25 @@ export const AdminTicketList = ({ tickets }: AdminTicketListProps) => {
     return filteredTickets.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredTickets, currentPage]);
 
-  // Reset to page 1 when filters change
-  useMemo(() => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
     setCurrentPage(1);
-  }, [searchTerm, statusFilter, dateStart, dateEnd]);
+  };
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setStatusFilter(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleDateStartChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDateStart(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleDateEndChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDateEnd(e.target.value);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="space-y-4">
@@ -59,7 +74,7 @@ export const AdminTicketList = ({ tickets }: AdminTicketListProps) => {
             type="text"
             placeholder="Nombre o Email..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
             className="w-full rounded-lg border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
           />
         </div>
@@ -68,7 +83,7 @@ export const AdminTicketList = ({ tickets }: AdminTicketListProps) => {
           <label className="mb-1 block text-xs font-medium text-gray-500">Estado</label>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={handleStatusChange}
             className="w-full rounded-lg border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
           >
             <option value="all">Todos</option>
@@ -84,7 +99,7 @@ export const AdminTicketList = ({ tickets }: AdminTicketListProps) => {
             <input
               type="date"
               value={dateStart}
-              onChange={(e) => setDateStart(e.target.value)}
+              onChange={handleDateStartChange}
               className="w-full rounded-lg border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
@@ -93,7 +108,7 @@ export const AdminTicketList = ({ tickets }: AdminTicketListProps) => {
             <input
               type="date"
               value={dateEnd}
-              onChange={(e) => setDateEnd(e.target.value)}
+              onChange={handleDateEndChange}
               className="w-full rounded-lg border-gray-300 text-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>

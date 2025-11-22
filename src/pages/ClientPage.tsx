@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../hooks/useRole';
 import { useTicketStore } from '../store/useTicketStore';
 import { ticketService } from '../services/ticketService';
 import { CreateTicketForm } from '../features/tickets/components/CreateTicketForm';
+import { Pagination } from '../components/ui/Pagination';
 import type { Ticket } from '../types/types';
+
+const ITEMS_PER_PAGE = 10;
 
 export const ClientPage = () => {
   const { user } = useAuth();
   const { tickets, setTickets, setLoading, setError } = useTicketStore();
   const [selectedRequest, setSelectedRequest] = useState<Ticket | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const loadTickets = async () => {
@@ -27,6 +31,13 @@ export const ClientPage = () => {
 
     loadTickets();
   }, [user, setTickets, setLoading, setError]);
+
+  const totalPages = Math.ceil(tickets.length / ITEMS_PER_PAGE);
+
+  const paginatedTickets = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return tickets.slice(start, start + ITEMS_PER_PAGE);
+  }, [tickets, currentPage]);
 
   const getStatusBadge = (status: string) => {
     const styles = {
@@ -74,14 +85,14 @@ export const ClientPage = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {tickets.length === 0 ? (
+                    {paginatedTickets.length === 0 ? (
                       <tr>
                         <td colSpan={5} className="px-6 py-4 text-center text-sm text-gray-500">
                           No tienes solicitudes registradas.
                         </td>
                       </tr>
                     ) : (
-                      tickets.map((req) => (
+                      paginatedTickets.map((req) => (
                         <tr key={req.id} className="hover:bg-gray-50">
                           <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">#{req.id}</td>
                           <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
@@ -106,6 +117,12 @@ export const ClientPage = () => {
                   </tbody>
                 </table>
               </div>
+              
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </div>
           </div>
         </div>

@@ -18,7 +18,7 @@ export const AdminDashboard = () => {
         // In a real app, we would validate this with Zod or similar
         const data = await ticketService.getAllTickets();
         setTickets(data as unknown as TicketWithUser[]);
-      } catch (err) {
+      } catch {
         setError('Error al cargar el listado de tickets');
       } finally {
         setLoading(false);

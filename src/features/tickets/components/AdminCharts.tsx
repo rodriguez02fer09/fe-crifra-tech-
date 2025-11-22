@@ -50,9 +50,9 @@ export const AdminCharts = ({ tickets }: AdminChartsProps) => {
     }, {} as Record<string, number>);
 
     return [
-      { name: 'Alta', tickets: counts['alta'] || 0 },
-      { name: 'Media', tickets: counts['media'] || 0 },
-      { name: 'Baja', tickets: counts['baja'] || 0 },
+      { name: 'Alta', tickets: counts['alta'] || 0, color: '#EF4444' }, // Red
+      { name: 'Media', tickets: counts['media'] || 0, color: '#F59E0B' }, // Yellow/Amber
+      { name: 'Baja', tickets: counts['baja'] || 0, color: '#22C55E' }, // Green
     ];
   }, [tickets]);
 
@@ -110,7 +110,11 @@ export const AdminCharts = ({ tickets }: AdminChartsProps) => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="tickets" fill="#8884d8" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="tickets" radius={[4, 4, 0, 0]}>
+                {priorityData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
