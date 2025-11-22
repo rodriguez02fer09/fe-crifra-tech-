@@ -85,13 +85,25 @@ export const ticketService = {
   /**
    * Create a new ticket
    */
-  async createTicket(ticket: Omit<Ticket, 'id'>): Promise<Ticket> {
+  /**
+   * Create a new ticket
+   */
+  async createTicket(ticket: Omit<Ticket, 'id' | 'date' | 'updatedAt' | 'status' | 'response' | 'assignedTo'>): Promise<Ticket> {
+    const newTicket = {
+      ...ticket,
+      status: 'pendiente',
+      response: '',
+      assignedTo: null,
+      date: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
     const response = await fetch(`${API_BASE_URL}/tickets`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(ticket),
+      body: JSON.stringify(newTicket),
     });
 
     if (!response.ok) {
