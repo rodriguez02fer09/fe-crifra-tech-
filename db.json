@@ -704,6 +704,32 @@
       "date": "2025-11-22T06:46:16.754Z",
       "updatedAt": "2025-11-22T06:46:16.755Z",
       "id": 51
+    },
+    {
+      "title": "Ticket Resuelto Histórico 16",
+      "description": "Ticket Resuelto Histórico 16",
+      "priority": "media",
+      "category": "tecnico",
+      "userId": 3,
+      "status": "pendiente",
+      "response": "",
+      "assignedTo": 2,
+      "date": "2025-11-22T07:14:24.753Z",
+      "updatedAt": "2025-11-22T07:14:24.753Z",
+      "id": 52
+    },
+    {
+      "title": "Ticket Resuelto Histórico 16",
+      "description": "Ticket Resuelto Histórico 16",
+      "priority": "media",
+      "category": "pagos",
+      "userId": 3,
+      "status": "pendiente",
+      "response": "",
+      "assignedTo": 2,
+      "date": "2025-11-22T07:14:31.022Z",
+      "updatedAt": "2025-11-22T07:14:31.022Z",
+      "id": 53
     }
   ]
 }
