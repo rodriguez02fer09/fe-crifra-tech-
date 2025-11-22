@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Input } from '../../../../../components/cross/Input';
 import { Button } from '../../../../../components/cross/Button';
 import { Select } from '../../Select/src/Select';
+import { ticketService } from '../../../../../services/ticketService';
+import { useAuthStore } from '../../../../../store/useAuthStore';
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
+  const setUser = useAuthStore((state) => state.setUser);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -15,6 +21,9 @@ export const LoginForm = () => {
     password: '',
     role: '',
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   const validate = () => {
     const newErrors = { email: '', password: '', role: '' };
@@ -37,7 +46,7 @@ export const LoginForm = () => {
     }
 
     if (!formData.role) {
-      newErrors.role = 'Debes seleccionar un rol';
+      newErrors.role = 'El rol es obligatorio';
       isValid = false;
     }
 
@@ -45,31 +54,68 @@ export const LoginForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      console.log('Form data:', formData);
-      alert('Login exitoso (simulado)');
+    setLoginError('');
+
+    if (!validate()) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const user = await ticketService.login(formData.email, formData.password, formData.role);
+      
+      // Save user to Zustand store (will persist to sessionStorage)
+      setUser(user);
+
+      // Redirect based on user role
+      switch (user.role) {
+        case 'admin':
+          navigate('/admin');
+          break;
+        case 'support':
+          navigate('/support');
+          break;
+        case 'client':
+          navigate('/client');
+          break;
+        default:
+          navigate('/');
+      }
+    } catch (error) {
+      setLoginError(
+        error instanceof Error ? error.message : 'Error al iniciar sesión'
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types
+    
+    // Clear errors when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+    
+    // Clear login error when user types
+    if (loginError) {
+      setLoginError('');
+    }
   };
-
-  const roleOptions = [
-    { value: 'admin', label: 'Administrador' },
-    { value: 'client', label: 'Cliente' },
-    { value: 'support', label: 'Soporte' },
-  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {loginError && (
+        <div className="rounded-md bg-red-50 p-4">
+          <p className="text-sm text-red-800">{loginError}</p>
+        </div>
+      )}
+
       <Input
         id="email"
         name="email"
@@ -81,6 +127,7 @@ export const LoginForm = () => {
         onChange={handleChange}
         error={errors.email}
         placeholder="correo@ejemplo.com"
+        disabled={isLoading}
       />
 
       <Input
@@ -94,6 +141,7 @@ export const LoginForm = () => {
         onChange={handleChange}
         error={errors.password}
         placeholder="••••••••"
+        disabled={isLoading}
       />
 
       <Select
@@ -102,14 +150,19 @@ export const LoginForm = () => {
         label="Rol"
         value={formData.role}
         onChange={handleChange}
-        options={roleOptions}
-        placeholder="Selecciona un rol"
         error={errors.role}
+        placeholder="Selecciona tu rol"
+        options={[
+          { value: 'admin', label: 'Administrador' },
+          { value: 'support', label: 'Soporte' },
+          { value: 'client', label: 'Cliente' },
+        ]}
+        disabled={isLoading}
       />
 
       <div>
-        <Button type="submit">
-          Iniciar Sesión
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
         </Button>
       </div>
     </form>
