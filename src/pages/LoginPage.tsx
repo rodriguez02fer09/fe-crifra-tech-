@@ -1,19 +1,21 @@
-import { LoginForm } from '../features/auth/components/LoginForm';
+import { LoginForm } from '../features/auth/components/LoginForm/src/LoginForm';
+import { LoginHeader } from '../features/auth/components/LoginHeader';
+import { AnimatedBackground } from '../components/layout';
 
 export const LoginPage = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-fondo px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg">
-        <div>
-          <h2 className="mt-2 text-center text-3xl font-bold tracking-tight text-texto">
-            Iniciar Sesión
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Ingresa tus credenciales para acceder
-          </p>
-        </div>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
+      <AnimatedBackground />
+      <div className="relative z-10 w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-2xl">
+        <LoginHeader 
+          title="Iniciar Sesión" 
+          description="Ingresa tus credenciales para acceder" 
+        />
         <LoginForm />
       </div>
     </div>
   );
 };
+
+
+

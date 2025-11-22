@@ -95,29 +95,10 @@ export const SupportPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-fondo font-sans text-texto">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-secundario shadow-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-principal">CIFRA TECH</span>
-              <span className="ml-4 rounded-md bg-white/10 px-2 py-1 text-xs font-medium text-white">Panel Soporte</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-300">Agente Soporte</span>
-              <div className="h-8 w-8 rounded-full bg-principal/20 flex items-center justify-center text-principal font-bold border border-principal">
-                S
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6 lg:flex-row h-[calc(100vh-8rem)]">
+    <>
+      <div className="flex flex-col gap-6 lg:flex-row h-[calc(100vh-8rem)]">
           
-          {/* Ticket List */}
+
           <div className="w-full lg:w-1/3 flex flex-col rounded-xl bg-white shadow-sm overflow-hidden">
             <div className="border-b border-gray-200 px-6 py-4">
               <h2 className="text-lg font-medium text-texto">Solicitudes Asignadas</h2>
@@ -175,9 +156,9 @@ export const SupportPage = () => {
                   </div>
                 </div>
 
-                {/* Ticket Details Body */}
+         
                 <div className="flex-1 overflow-y-auto bg-gray-50/50 p-6">
-                  {/* Description Section */}
+      
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                     <h3 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wide">Descripción del Problema</h3>
                     <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
@@ -185,7 +166,6 @@ export const SupportPage = () => {
                     </div>
                   </div>
 
-                  {/* Responses Section */}
                   <div className="mt-6 space-y-6">
                     {selectedTicket.messages.length > 0 && (
                       <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide px-1">Respuestas</h3>
@@ -202,7 +182,7 @@ export const SupportPage = () => {
                   </div>
                 </div>
 
-                {/* Response Area */}
+         
                 <div className="border-t border-gray-200 p-6 bg-white">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Agregar Respuesta</label>
                   <div className="flex gap-4">
@@ -241,7 +221,6 @@ export const SupportPage = () => {
             )}
           </div>
         </div>
-      </main>
-    </div>
+    </>
   );
 };
