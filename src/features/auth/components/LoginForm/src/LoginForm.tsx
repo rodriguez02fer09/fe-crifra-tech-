@@ -58,7 +58,10 @@ export const LoginForm = () => {
     e.preventDefault();
     setLoginError('');
 
+    console.log('Attempting login with:', formData);
+
     if (!validate()) {
+      console.log('Validation failed', errors);
       return;
     }
 
@@ -66,11 +69,13 @@ export const LoginForm = () => {
 
     try {
       const user = await ticketService.login(formData.email, formData.password, formData.role);
+      console.log('Login successful, user:', user);
       
       // Save user to Zustand store (will persist to sessionStorage)
       setUser(user);
 
       // Redirect based on user role
+      console.log('Redirecting based on role:', user.role);
       switch (user.role) {
         case 'admin':
           navigate('/admin');
@@ -85,6 +90,7 @@ export const LoginForm = () => {
           navigate('/');
       }
     } catch (error) {
+      console.error('Login error:', error);
       setLoginError(
         error instanceof Error ? error.message : 'Error al iniciar sesión'
       );
