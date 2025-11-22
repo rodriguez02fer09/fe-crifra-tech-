@@ -165,11 +165,11 @@
       "description": "Descripción detallada del problema para el ticket 10. Este es un caso de prueba no resuelto.",
       "userId": 3,
       "assignedTo": 2,
-      "status": "en_proceso",
+      "status": "resuelto",
       "priority": "alta",
       "date": "2025-11-15T02:36:04.986Z",
-      "updatedAt": "2025-11-22T06:05:55.003Z",
-      "response": "Estamos revisando su caso.",
+      "updatedAt": "2025-11-22T06:19:29.925Z",
+      "response": "Estamos revisando su caso. todo bien",
       "category": "consultas"
     },
     {
@@ -691,6 +691,19 @@
       "updatedAt": "2025-11-22T06:05:55.004Z",
       "response": "El problema ha sido resuelto exitosamente.",
       "category": "autenticacion"
+    },
+    {
+      "title": "Ticket Resuelto Histórico 15",
+      "description": "Descripción detallada del problema para el ticket 4. Este es un caso de prueba no resuelto.",
+      "priority": "alta",
+      "category": "tecnico",
+      "userId": 3,
+      "status": "pendiente",
+      "response": "",
+      "assignedTo": 2,
+      "date": "2025-11-22T06:46:16.754Z",
+      "updatedAt": "2025-11-22T06:46:16.755Z",
+      "id": 51
     }
   ]
 }

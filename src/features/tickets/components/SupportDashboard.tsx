@@ -3,6 +3,7 @@ import { useAuthStore } from '../../../store/useAuthStore';
 import { useSupportTicketStore } from '../../../store/useSupportTicketStore';
 import { ticketService } from '../../../services/ticketService';
 import { TicketManagement } from './TicketManagement';
+import { Pagination } from '../../../components/ui/Pagination';
 import type { Ticket } from '../../../types/types';
 
 const PRIORITY_ORDER = {
@@ -23,11 +24,14 @@ const STATUS_LABELS = {
   resuelto: 'Resuelto',
 };
 
+const ITEMS_PER_PAGE = 10;
+
 export const SupportDashboard = () => {
   const user = useAuthStore((state) => state.user);
   const { assignedTickets, setAssignedTickets, isLoading, setLoading, error, setError } = useSupportTicketStore();
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [priorityFilter, setPriorityFilter] = useState<'all' | 'alta' | 'media' | 'baja'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -67,6 +71,18 @@ export const SupportDashboard = () => {
 
     return result;
   }, [assignedTickets, priorityFilter]);
+
+  const totalPages = Math.ceil(filteredAndSortedTickets.length / ITEMS_PER_PAGE);
+
+  const paginatedTickets = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredAndSortedTickets.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredAndSortedTickets, currentPage]);
+
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [priorityFilter]);
 
   if (!user || user.role !== 'support') {
     return (
@@ -143,7 +159,7 @@ export const SupportDashboard = () => {
 
       {/* List View */}
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-        {filteredAndSortedTickets.length === 0 ? (
+        {paginatedTickets.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-12 text-center">
             <div className="mb-4 rounded-full bg-gray-100 p-4">
               <svg className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -155,7 +171,7 @@ export const SupportDashboard = () => {
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
-            {filteredAndSortedTickets.map((ticket) => (
+            {paginatedTickets.map((ticket) => (
               <div
                 key={ticket.id}
                 onClick={() => setSelectedTicket(ticket)}
@@ -225,6 +241,12 @@ export const SupportDashboard = () => {
             ))}
           </div>
         )}
+        
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
       {selectedTicket && (
