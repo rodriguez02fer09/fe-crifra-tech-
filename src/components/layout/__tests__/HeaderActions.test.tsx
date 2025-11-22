@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
 import { HeaderActions } from '../src/HeaderActions';
 import { RouterWrapper } from '../__fixtures__/routerWrapper';
+import { useAuth } from '../../../hooks/useRole';
+
+// Mock useAuth hook
+vi.mock('../../../hooks/useRole');
 
 /**
  * Helper to render HeaderActions with a specific route.
@@ -14,63 +19,38 @@ const renderWithRoute = (path: string) => {
 };
 
 describe('HeaderActions component', () => {
-  test('renders all navigation links', () => {
+  it('renders login link when not authenticated', () => {
+    vi.mocked(useAuth).mockReturnValue({
+      user: null,
+      isAuthenticated: false,
+      role: undefined,
+    });
+
     renderWithRoute('/');
     
-    expect(screen.getByRole('link', { name: /admin/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /soporte/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /cliente/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /iniciar sesión/i })).toBeInTheDocument();
   });
 
-  test('highlights admin link when on /admin route', () => {
-    renderWithRoute('/admin');
-    
-    const adminLink = screen.getByRole('link', { name: /admin/i });
-    const supportLink = screen.getByRole('link', { name: /soporte/i });
-    const clientLink = screen.getByRole('link', { name: /cliente/i });
+  it('renders user info and logout button when authenticated', () => {
+    vi.mocked(useAuth).mockReturnValue({
+      user: { 
+        id: 1, 
+        name: 'Test User', 
+        email: 'test@example.com', 
+        role: 'admin',
+        password: 'password',
+        createdAt: new Date().toISOString()
+      },
+      isAuthenticated: true,
+      role: 'admin',
+    });
 
-    expect(adminLink).toHaveClass('text-principal');
-    expect(supportLink).not.toHaveClass('text-principal');
-    expect(clientLink).not.toHaveClass('text-principal');
-  });
-
-  test('highlights support link when on /support route', () => {
-    renderWithRoute('/support');
-    
-    const adminLink = screen.getByRole('link', { name: /admin/i });
-    const supportLink = screen.getByRole('link', { name: /soporte/i });
-    const clientLink = screen.getByRole('link', { name: /cliente/i });
-
-    expect(adminLink).not.toHaveClass('text-principal');
-    expect(supportLink).toHaveClass('text-principal');
-    expect(clientLink).not.toHaveClass('text-principal');
-  });
-
-  test('highlights client link when on /client route', () => {
-    renderWithRoute('/client');
-    
-    const adminLink = screen.getByRole('link', { name: /admin/i });
-    const supportLink = screen.getByRole('link', { name: /soporte/i });
-    const clientLink = screen.getByRole('link', { name: /cliente/i });
-
-    expect(adminLink).not.toHaveClass('text-principal');
-    expect(supportLink).not.toHaveClass('text-principal');
-    expect(clientLink).toHaveClass('text-principal');
-  });
-
-  test('renders user avatar', () => {
     renderWithRoute('/');
     
-    const avatar = screen.getByText('U');
-    expect(avatar).toBeInTheDocument();
-    expect(avatar).toHaveClass('rounded-full');
-  });
-
-  test('navigation links have correct href attributes', () => {
-    renderWithRoute('/');
-    
-    expect(screen.getByRole('link', { name: /admin/i })).toHaveAttribute('href', '/admin');
-    expect(screen.getByRole('link', { name: /soporte/i })).toHaveAttribute('href', '/support');
-    expect(screen.getByRole('link', { name: /cliente/i })).toHaveAttribute('href', '/client');
+    expect(screen.getByText('Test User')).toBeInTheDocument();
+    expect(screen.getByText('Administrador')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /salir/i })).toBeInTheDocument();
+    // Avatar letter
+    expect(screen.getByText('T')).toBeInTheDocument();
   });
 });
