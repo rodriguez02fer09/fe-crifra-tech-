@@ -1,7 +1,5 @@
-interface LoginHeaderProps {
-  title: string;
-  description: string;
-}
+import type { LoginHeaderProps } from "../core";
+
 
 export const LoginHeader = ({ title, description }: LoginHeaderProps) => {
   return (

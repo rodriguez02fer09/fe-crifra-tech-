@@ -1,6 +1,6 @@
-import { LoginForm } from '../features/auth/components/LoginForm/src/LoginForm';
 import { LoginHeader } from '../features/auth/components/LoginHeader';
 import { AnimatedBackground } from '../components/layout';
+import { LoginForm } from '../features/auth/wrapper-components/LoginForm';
 
 export const LoginPage = () => {
   return (
