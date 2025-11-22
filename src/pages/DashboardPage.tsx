@@ -1,38 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '../hooks/useRole';
 import { ticketService } from '../services/ticketService';
-import type { Ticket } from '../types/types';
+import { useTicketStore } from '../store/useTicketStore';
+import { CreateTicketForm } from '../features/tickets/components/CreateTicketForm';
 
 export const DashboardPage = () => {
   const { user } = useAuth();
-  const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { tickets, isLoading, error, setTickets, setLoading, setError } = useTicketStore();
 
   useEffect(() => {
     const loadDashboardData = async () => {
       if (!user) {
         setError('Usuario no autenticado');
-        setIsLoading(false);
+        setLoading(false);
         return;
       }
 
       try {
-        setIsLoading(true);
+        setLoading(true);
         setError(null);
         const data = await ticketService.getUserDashboardData(user);
         setTickets(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar los datos');
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
     loadDashboardData();
-  }, [user]);
+  }, [user, setTickets, setLoading, setError]);
 
-  if (isLoading) {
+  if (isLoading && tickets.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
@@ -43,7 +42,7 @@ export const DashboardPage = () => {
     );
   }
 
-  if (error) {
+  if (error && tickets.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="rounded-lg bg-red-50 p-6 text-center">
@@ -70,6 +69,13 @@ export const DashboardPage = () => {
           Bienvenido, {user?.name}
         </p>
       </div>
+
+      {/* Client Create Ticket Form */}
+      {user?.role === 'client' && (
+        <div className="mb-8">
+          <CreateTicketForm />
+        </div>
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
