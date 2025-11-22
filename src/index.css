@@ -1,4 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+
+  --color-principal: #00D664;
+  --color-secundario: #1B2B31;
+  --color-fondo: #F7F9F9;
+  --color-texto: #212F3D;
+  --color-acento: #2E86C1;
+  
+  --color-aprobado: #28B463;
+  --color-pendiente: #F1C40F;
+  --color-rechazado: #CB4335;
+  --color-info: #2980B9;
+}
 
 /* Eliminar scroll vertical y horizontal */
 html,

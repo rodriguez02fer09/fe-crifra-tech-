@@ -1,11 +1,12 @@
-import './App.css'
-import { Layout } from './components/layout/layout'
-function App({ children }: { children: React.ReactNode }) {
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './router/AppRouter';
+
+function App() {
   return (
-    <div>
-      <Layout>{children}</Layout>
-    </div>
-  )
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
