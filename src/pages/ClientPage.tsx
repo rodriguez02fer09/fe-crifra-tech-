@@ -70,26 +70,7 @@ export const ClientPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-fondo font-sans text-texto">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-secundario shadow-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-principal">CIFRA TECH</span>
-              <span className="ml-4 rounded-md bg-white/10 px-2 py-1 text-xs font-medium text-white">Panel Cliente</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-300">Cliente Demo</span>
-              <div className="h-8 w-8 rounded-full bg-principal/20 flex items-center justify-center text-principal font-bold border border-principal">
-                C
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Create Request Form */}
@@ -226,7 +207,6 @@ export const ClientPage = () => {
             </div>
           </div>
         )}
-      </main>
-    </div>
+    </>
   );
 };

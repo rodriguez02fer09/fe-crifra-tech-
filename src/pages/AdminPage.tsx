@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 
-// Mock Data
 const MOCK_REQUESTS = [
   { id: 'R-001', subject: 'Acceso denegado', client: 'TechCorp', status: 'open', date: '2023-11-21', priority: 'high' },
   { id: 'R-002', subject: 'Factura pendiente', client: 'Consulting Inc', status: 'in_progress', date: '2023-11-20', priority: 'medium' },
@@ -17,7 +16,7 @@ export const AdminPage = () => {
     date: '',
   });
 
-  // Statistics
+
   const stats = useMemo(() => {
     const total = MOCK_REQUESTS.length;
     const open = MOCK_REQUESTS.filter(r => r.status === 'open').length;
@@ -26,7 +25,6 @@ export const AdminPage = () => {
     return { total, open, inProgress, closed };
   }, []);
 
-  // Filtered Data
   const filteredRequests = useMemo(() => {
     return MOCK_REQUESTS.filter(req => {
       const matchClient = req.client.toLowerCase().includes(filters.client.toLowerCase());
@@ -55,28 +53,8 @@ export const AdminPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-fondo font-sans text-texto">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-secundario shadow-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-principal">CIFRA TECH</span>
-              <span className="ml-4 rounded-md bg-white/10 px-2 py-1 text-xs font-medium text-white">Panel Administrador</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-300">Admin User</span>
-              <div className="h-8 w-8 rounded-full bg-principal/20 flex items-center justify-center text-principal font-bold border border-principal">
-                A
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+    <>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        
-        {/* Statistics Cards */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
           <div className="overflow-hidden rounded-xl bg-white shadow-sm border-l-4 border-principal p-5">
             <dt className="truncate text-sm font-medium text-gray-500">Total Solicitudes</dt>
@@ -96,13 +74,13 @@ export const AdminPage = () => {
           </div>
         </div>
 
-        {/* Filters & List */}
+     
         <div className="rounded-xl bg-white shadow-sm overflow-hidden">
           <div className="border-b border-gray-200 px-6 py-4">
             <h2 className="text-lg font-medium text-texto">Gestión de Solicitudes</h2>
           </div>
           
-          {/* Filters */}
+      
           <div className="p-6 bg-gray-50 border-b border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
@@ -185,7 +163,6 @@ export const AdminPage = () => {
             </table>
           </div>
         </div>
-      </main>
-    </div>
+    </>
   );
 };
