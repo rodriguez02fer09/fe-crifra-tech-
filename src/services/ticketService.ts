@@ -55,9 +55,9 @@ export const ticketService = {
    * Get tickets assigned to a support agent (Support)
    */
   async getAssignedTickets(supportId: number): Promise<Ticket[]> {
-    const response = await fetch(
-      `${API_BASE_URL}/tickets?assignedTo=${supportId}&status_ne=resuelto`
-    );
+    const url = `${API_BASE_URL}/tickets?assignedTo=${supportId}&status_ne=resuelto`;
+    console.log('Fetching assigned tickets from:', url);
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Error al obtener los tickets asignados');
@@ -93,7 +93,7 @@ export const ticketService = {
       ...ticket,
       status: 'pendiente',
       response: '',
-      assignedTo: null,
+      assignedTo: 2,
       date: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

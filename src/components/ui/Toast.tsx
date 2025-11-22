@@ -41,7 +41,7 @@ export const Toast = ({ message, type, onClose, duration = 3000 }: ToastProps) =
   };
 
   return (
-    <div className={`fixed top-4 right-4 z-50 flex items-center gap-3 rounded-lg px-4 py-3 shadow-lg transition-all duration-300 ${bgColors[type]}`}>
+    <div className={`fixed bottom-4 right-4 z-50 flex items-center gap-3 rounded-lg px-4 py-3 shadow-lg transition-all duration-300 ${bgColors[type]}`}>
       {icons[type]}
       <p className="font-medium text-white">{message}</p>
       <button onClick={onClose} className="ml-2 text-white/80 hover:text-white">
