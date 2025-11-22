@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useAuthStore } from '../../../store/useAuthStore';
 import { useSupportTicketStore } from '../../../store/useSupportTicketStore';
 import { ticketService } from '../../../services/ticketService';
@@ -79,10 +79,10 @@ export const SupportDashboard = () => {
     return filteredAndSortedTickets.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredAndSortedTickets, currentPage]);
 
-  // Reset to page 1 when filters change
-  useMemo(() => {
+  const handlePriorityFilterChange = (filter: 'all' | 'alta' | 'media' | 'baja') => {
+    setPriorityFilter(filter);
     setCurrentPage(1);
-  }, [priorityFilter]);
+  };
 
   if (!user || user.role !== 'support') {
     return (
@@ -123,7 +123,7 @@ export const SupportDashboard = () => {
             {(['all', 'alta', 'media', 'baja'] as const).map((filter) => (
               <button
                 key={filter}
-                onClick={() => setPriorityFilter(filter)}
+                onClick={() => handlePriorityFilterChange(filter)}
                 className={`rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
                   priorityFilter === filter
                     ? 'bg-white text-blue-600 shadow-sm'
