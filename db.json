@@ -64,8 +64,8 @@
       "status": "pendiente",
       "priority": "alta",
       "date": "2025-11-21T03:44:51.596Z",
-      "updatedAt": "2025-11-22T06:05:55.003Z",
-      "response": "",
+      "updatedAt": "2025-11-22T15:23:44.730Z",
+      "response": "resuelto",
       "category": "pagos"
     },
     {
@@ -152,11 +152,11 @@
       "description": "Descripción detallada del problema para el ticket 9. Este es un caso de prueba no resuelto.",
       "userId": 5,
       "assignedTo": 2,
-      "status": "en_proceso",
+      "status": "resuelto",
       "priority": "alta",
       "date": "2025-11-12T01:39:21.422Z",
-      "updatedAt": "2025-11-22T06:05:55.003Z",
-      "response": "Estamos revisando su caso.",
+      "updatedAt": "2025-11-22T15:24:59.903Z",
+      "response": "Estamos revisando su caso. adsda",
       "category": "pagos"
     },
     {
@@ -730,6 +730,32 @@
       "date": "2025-11-22T07:14:31.022Z",
       "updatedAt": "2025-11-22T07:14:31.022Z",
       "id": 53
+    },
+    {
+      "title": "tetst ",
+      "description": "tetst ctetst ctetst ctetst ctetst ctetst ctetst ctetst ctetst ctetst ctetst ctetst c",
+      "priority": "baja",
+      "category": "pagos",
+      "userId": 3,
+      "status": "pendiente",
+      "response": "",
+      "assignedTo": 2,
+      "date": "2025-11-22T14:47:12.636Z",
+      "updatedAt": "2025-11-22T14:47:12.636Z",
+      "id": 54
+    },
+    {
+      "title": "Ticket Resuelto Histórico 11",
+      "description": "Ticket Resuelto Histórico 11. Ticket Resuelto Histórico 11 Ticket Resuelto Histórico 11Ticket Resuelto Histórico 11Ticket Resuelto Histórico 11Ticket Resuelto Histórico 11Ticket Resuelto Histórico 11",
+      "priority": "baja",
+      "category": "pagos",
+      "userId": 3,
+      "status": "pendiente",
+      "response": "",
+      "assignedTo": 2,
+      "date": "2025-11-22T15:25:58.585Z",
+      "updatedAt": "2025-11-22T15:25:58.585Z",
+      "id": 55
     }
   ]
 }

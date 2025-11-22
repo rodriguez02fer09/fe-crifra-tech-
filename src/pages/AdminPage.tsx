@@ -1,4 +1,4 @@
-import { AdminDashboard } from '../features/tickets/components/AdminDashboard';
+import { AdminDashboard } from '../features/admin';
 
 export const AdminPage = () => {
   return (

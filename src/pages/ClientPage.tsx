@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../hooks/useRole';
 import { useTicketStore } from '../store/useTicketStore';
 import { ticketService } from '../services/ticketService';
-import { CreateTicketForm } from '../features/tickets/components/CreateTicketForm';
+import { CreateTicketForm } from '../features/client/ticket-management/components/CreateTicketForm';
 import { Pagination } from '../components/ui/Pagination';
 import type { Ticket } from '../types/types';
 

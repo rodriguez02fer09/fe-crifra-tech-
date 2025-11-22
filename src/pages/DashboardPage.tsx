@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../hooks/useRole';
 import { ticketService } from '../services/ticketService';
 import { useTicketStore } from '../store/useTicketStore';
-import { CreateTicketForm } from '../features/tickets/components/CreateTicketForm';
+import { CreateTicketForm } from '../features/client/ticket-management/components/CreateTicketForm';
 
 export const DashboardPage = () => {
   const { user } = useAuth();

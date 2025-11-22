@@ -1,4 +1,4 @@
-import { SupportDashboard } from '../features/tickets/components/SupportDashboard';
+import { SupportDashboard } from '../features/support';
 
 export const SupportPage = () => {
   return (

@@ -9,7 +9,7 @@ import { useTicketStore } from '../../store/useTicketStore';
 vi.mock('../../services/ticketService');
 vi.mock('../../hooks/useRole');
 vi.mock('../../store/useTicketStore');
-vi.mock('../../features/tickets/components/CreateTicketForm', () => ({
+vi.mock('../../features/client/ticket-management/components/CreateTicketForm', () => ({
   CreateTicketForm: () => <div data-testid="create-ticket-form">Create Ticket Form</div>,
 }));
 
